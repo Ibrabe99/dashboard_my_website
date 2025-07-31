@@ -5,7 +5,7 @@
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{ asset('assets/admin/index2.html') }}"><b>Barara</b>GOOD</a>
+    <a href="{{ asset('/#') }}"><b>Ibrahim</b>Website</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -26,7 +26,7 @@
         @csrf
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control text-right" name="username" placeholder="إسم المستخدم">
+          <input type="text" class="form-control text-right" name="name" placeholder="إسم المستخدم">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        @error('username')
+        @error('name')
         <p class="text-danger text-right">{{$message}}</p>
         @enderror
 

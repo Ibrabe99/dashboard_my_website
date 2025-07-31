@@ -24,24 +24,28 @@ class Project extends Model
         'slug',
         'image',
         'description',
+        'hijri_date',
+        'day',
+        'date',
+        'time',
         'live_link',
         'github_link',
         'category_id',
-
+        'created_at',
     ];
 
     /**
      * الحقول المخفية عند التحويل إلى JSON/Array
      */
     protected $hidden = [
-        'created_at',
+
         'updated_at',
     ];
 
     /**
      * Casting للحفاظ على نوع البيانات
-     * 
-     * 
+     *
+     *
      */
 
 
@@ -54,5 +58,5 @@ class Project extends Model
     {
         return $this->hasMany(ProjectImage::class)->orderBy('project_id');
     }
-    
+
 }

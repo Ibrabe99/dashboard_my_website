@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">الرئيسية</a></li>
-                        <li class="breadcrumb-item active"> تبرع مستلم</li>
+                        <li class="breadcrumb-item active"> المشاريع</li>
 
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
     </section>
 
     {{-- <a href="{{ route('admin.add.daily-donation') }}" class="btn btn-primary mb-5 mt-5"> إضافة تبرع جديد مستلم</a> --}}
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">
+    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addProjectModal">
         <i class="fas fa-plus"></i> إضافة مشروع جديد
     </button>
 
@@ -43,12 +43,12 @@
                     @csrf
                     <div class="modal-header bg-primary">
                         <h5 class="modal-title" id="addProjectModalLabel">إضافة مشروع جديد</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="إغلاق">
+                        <button type="button" class="close"  data-dismiss="modal" aria-label="إغلاق">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body ">
                         <div class="row">
                             <div class="col-md-6">
 
@@ -118,7 +118,7 @@
                                     <label for="projectImage">صورة المشروع</label>
                                     <input type="file"  name="images[]"   class="form-control-file" id="projectImage" multiple  required>
                                 </div>
-                                
+
                                 @error('image')
                                     <p class="text-danger mt-3">{{ $message }}</p>
                                 @enderror
@@ -149,7 +149,7 @@
         <div class="card-body table-responsive">
 
             @if (@isset($projects) and !@empty($projects))
-                <table id="example2" class="table table-bordered  ">
+                <table id="example2" class="table table-striped table-bordered table-auto  ">
                     <thead>
                         <tr>
                             <th>العنوان</th>
@@ -157,7 +157,11 @@
                             <th>رابط المشروع </th>
                             <th>رابط المشروع على github </th>
                             <th>القسم </th>
-                            <th style="border-left: 1px solid #ddd;">صورة الغلاف</th>
+                            <th style="border-left: 1px solid #DDDDDD; width: 150px">صورة الغلاف</th>
+                            <th>اليوم </th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ الهجري </th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ </th>
+
                             <th>الإجراءات</th>
                         </tr>
                     </thead>
@@ -170,23 +174,32 @@
                                 <td>{{ $item->live_link }}</td>
                                 <td>{{ $item->github_link }}</td>
                                 <td>{{ $item->category->name}}</td>
-                               
-                               
+
+
 
                                 <td style="border-left: 1px solid #ddd;">
                                     @if ($item->image === null)
                                         <img src="" class="w-25 h-25 img-fluid img-thumbnail" alt="لا توجد صورة">
                                     @else
                                     <div class="project-images">
-                                        <img src="{{ asset('public/' . $item->image) }}" class="w-25 h-25" alt="10"
+                                        <img src="{{ asset('public/' . $item->image) }}" style="width: 100%; height: 100%;" class="w-25 h-25" alt="10"
                                         srcset="">
                                         {{-- @foreach ($item->images as $image)
                                             <img src="{{ asset('public/'.$image->path) }}" alt="صورة المشروع" style="max-width:200px; margin:10px;">
                                         @endforeach --}}
                                     </div>
                                     @endif
-                                    
+
                                 </td>
+
+                                <td>{{ $item->day}}</td>
+                                <td style="border-left: #DDDDDD solid 1px">{{ $item->hijri_date }}</td>
+                                <td style="border-left: #DDDDDD solid 1px">{{ $item->date }} ({{$item->time}})</td>
+
+
+
+
+
 
 {{-- {{ route('admin.daily-donation.show', $item->id) }}{{ route('admin.delete.daily-donation', ['id' => $item->id]) }} --}}
                                 <td class="d-flex align-items-center" style="gap: 10px;">
@@ -206,13 +219,13 @@
 
                                     <form action="{{ route('admin.projects.destroy', $item->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
                                         @csrf
-                                        @method('DELETE')    
+                                        @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" title="حذف"><i class="far fa-trash-alt"></i> </button>
 
-                                        
+
                                     </form>
-                                    
-                               
+
+
 
                                     <a href="{{ route('admin.projects.active', $item->id) }}" class="btn btn-sm {{ $item->is_active ? 'btn-success' : 'btn-secondary' }}">
                                         {{ $item->is_active ? 'مفعل' : 'غير مفعل' }}
@@ -224,13 +237,16 @@
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr >
                             <th>العنوان</th>
                             <th>التفاصيل</th>
                             <th>رابط المشروع </th>
                             <th>رابط المشروع على github </th>
                             <th>القسم </th>
                             <th style="border-left: 1px solid #ddd;">صورة الغلاف</th>
+                            <th>اليوم </th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ الهجري </th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ </th>
                             <th>الإجراءات</th>
                         </tr>
                     </tfoot>

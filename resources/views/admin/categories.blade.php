@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 
-@section('title', 'المشاريع')
+@section('title', 'الأقسام')
 
 @section('content')
 
@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">الرئيسية</a></li>
-                        <li class="breadcrumb-item active"> تبرع مستلم</li>
+                        <li class="breadcrumb-item active">الأقسام</li>
 
                     </ol>
                 </div>
@@ -32,7 +32,7 @@
 
     {{-- <a href="{{ route('admin.add.daily-donation') }}" class="btn btn-primary mb-5 mt-5"> إضافة تبرع جديد مستلم</a> --}}
     <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#addCategoryModal">
-        <i class="fas fa-folder-plus"></i> إضافة تصنيف جديد
+        <i class="fas fa-folder-plus"></i> إضافة قسم جديد
     </button>
 
     <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel"
@@ -42,7 +42,7 @@
                 <form action="{{ route('admin.category.store') }}" method="POST">
                     @csrf
                     <div class="modal-header bg-success">
-                        <h5 class="modal-title" id="addCategoryModalLabel">إضافة تصنيف</h5>
+                        <h5 class="modal-title" id="addCategoryModalLabel">إضافة قسم</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="إغلاق">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -50,7 +50,7 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">اسم التصنيف</label>
+                            <label for="name">اسم القسم</label>
                             <input type="text" name="name" class="form-control" placeholder="مثال: مواقع الويب"
                                 required>
                         </div>
@@ -58,7 +58,7 @@
 
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                        <button type="submit" class="btn btn-success">حفظ التصنيف</button>
+                        <button type="submit" class="btn btn-success">حفظ القسم</button>
                     </div>
                 </form>
             </div>
@@ -68,7 +68,7 @@
     <div class="card">
 
         <div class="card-header text-center">
-            <h3 class="card-title w-100">التبرعات اليومية المستلمة</h3>
+            <h3 class="card-title w-100">الأقسام</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive">

@@ -24,7 +24,7 @@ class AdminController extends Controller
         $skills = Skill::all();
         return view('admin.profile', compact('admin','social','skills'));
     }
-    
+
 
 
 
@@ -33,34 +33,38 @@ class AdminController extends Controller
         $admin = Auth::guard('admin')->user();
         return view('admin.admins.edit_profile', compact('admin'));
     }
- 
-    
+
+
 
 
     public function update(AdminRequest $request)
     {
-        $admin = Admin::first(); // لو عندك أدمن واحد
+        $admin = Admin::first(); // لو عندك أدمن واحد فقط
 
         $admin->name = $request->name;
         $admin->email = $request->email;
-        $admin->title = $request->summary;
+        $admin->title = $request->title;
         $admin->phone = $request->phone;
         $admin->location = $request->location;
         $admin->description = $request->description;
-    
+
+        if ($request->hasFile('photo')) {
+
+            $admin->photo = uploadImage('image', $request->file('photo'));
+        }
+
+        // تحديث كلمة المرور إذا تم إدخالها
         if ($request->password) {
             $admin->password = Hash::make($request->password);
         }
-    
-        
-        $admin->save();
-    
+
+        $admin->save(); // مهم جدًا
+
         return redirect()->back()->with('success', 'تم تحديث البيانات بنجاح.');
     }
 
 
 
-    
 
 
 }

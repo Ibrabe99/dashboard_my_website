@@ -23,6 +23,10 @@ class Article extends Model
         'title',
         'slug',
         'image',
+        'hijri_date',
+        'day',
+        'date',
+        'time',
         'content',
         'category_id',
     ];
@@ -44,7 +48,7 @@ class Article extends Model
      {
          return $this->belongsTo(Category::class);
      }
-     
+
     public function images()
     {
         return $this->hasMany(ArticlesImage::class)->orderBy('article_id');

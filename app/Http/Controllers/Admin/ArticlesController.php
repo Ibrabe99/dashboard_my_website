@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Alkoumi\LaravelHijriDate\Hijri;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticlesRequest;
 use App\Models\Article;
 use App\Models\Category;
+use Cassandra\Date;
 use Illuminate\Support\Str;
 use App\Models\ArticlesImage;
 use Illuminate\Http\Request;
@@ -35,11 +37,20 @@ class ArticlesController extends Controller
             $data['image'] = uploadImage('articles', $request->file('image'));
         }
 
+        $hijriDate = Hijri::Date('Y-m-d');
+        $hijriDay = Hijri::Date('l');
+        $date = date('Y-m-d');
+        $time = date('H:i:s');
+
         // إنشاء المشروع
         $article = Article::create([
             'title' => $data['title'],
             'content' => $data['content'],
             'slug' => $data['slug'],
+            'hijri_date' => $hijriDate,
+            'day' => $hijriDay,
+            'date' => $date,
+            'time' => $time,
             'category_id' => $data['category_id'],
             'image' => $data['image'] ?? null, // لو موجودة
         ]);
@@ -111,7 +122,7 @@ class ArticlesController extends Controller
             'image' => $data['image'] ?? $article->image,
         ]);
 
-        
+
 
         // إضافة صور جديدة
         if ($request->hasFile('images')) {
@@ -133,24 +144,24 @@ class ArticlesController extends Controller
     public function destroy($id)
     {
         $article = Article::findOrFail($id);
-    
+
         // حذف الصور الإضافية
         foreach ($article->images as $image) {
             Storage::delete($image->path);
             $image->delete();
         }
-    
+
         // حذف الصورة الرئيسية إن وجدت
         if ($article->image) {
             Storage::delete($article->image);
         }
-    
+
         // حذف المقالة
         $article->delete();
-    
+
         return redirect()->route('admin.articles')->with('success', 'تم حذف المقالة بنجاح.');
     }
-    
+
 
     public function toggleStatus($id)
 {

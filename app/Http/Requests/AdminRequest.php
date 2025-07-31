@@ -25,14 +25,14 @@ class AdminRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'password' => 'nullable|string|min:6',
-            'phone' => 'nullable|string|max:20',
+            'title' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:30',
             'location' => 'nullable|string|max:255',
-            'description' => 'nullable|string',         
-            'password' => 'nullable|string|min:6|confirmed',
+            'description' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ];
 
-        
+
     }
 
     public function messages(): array
@@ -40,9 +40,10 @@ class AdminRequest extends FormRequest
         return [
             'name.required' => 'اسم المستخدم مطلوب',
             'password.min' => 'كلمة المرور يجب أن تكون على الأقل 6 أحرف',
+            'title.required' => 'هذا الحقل مطلوب',
             'photo.image' => 'الملف المرفوع يجب أن يكون صورة',
             'photo.mimes' => 'الملف المرفوع يجب أن يكون من نوع jpg, jpeg, png, gif',
-            'photo.max' => 'الملف المرفوع يجب أن لا يتجاوز 2048 كيلوبايت',  
+            'photo.max' => 'الملف المرفوع يجب أن لا يتجاوز 2048 كيلوبايت',
             'email.required' => 'الإيميل مطلوب ',
             'email.email' => 'هناك خطا في صيغة البريد الالكتروني',
             'location.string' => 'هناك خطا فالبيانات',

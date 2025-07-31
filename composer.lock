@@ -4,8 +4,72 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88970a0117c062eed55fa8728fc43833",
+    "content-hash": "e56cd7b4432913306bcec74378e34a00",
     "packages": [
+        {
+            "name": "alkoumi/laravel-hijri-date",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alkoumi/laravel-hijri-date.git",
+                "reference": "ee726cf66349e8ab15f6f0b4041b9c96b7919742"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alkoumi/laravel-hijri-date/zipball/ee726cf66349e8ab15f6f0b4041b9c96b7919742",
+                "reference": "ee726cf66349e8ab15f6f0b4041b9c96b7919742",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alkoumi\\LaravelHijriDate\\LaravelHijriDateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alkoumi\\LaravelHijriDate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammed Alkoumi",
+                    "email": "komy66@gmail.com"
+                }
+            ],
+            "description": "Laravel package to Convert laravel date to our Amazing 💝 Hjri date {ummul qura and vice versa} . to look like [ الخميس ، ٢٢ ربيع الآخر ، ١٤٤١ - ٠٧:٤٩ مساءً]",
+            "homepage": "https://be.net/komy",
+            "keywords": [
+                "date",
+                "hijri-calendar",
+                "hijri-date",
+                "hjri",
+                "laravel-hijri-date",
+                "ummul-qura",
+                "ummul-qura-calendar"
+            ],
+            "support": {
+                "issues": "https://github.com/alkoumi/laravel-hijri-date/issues",
+                "source": "https://github.com/alkoumi/laravel-hijri-date/tree/v1.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/mohammadelkoumi",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-11-27T09:41:21+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.3",
@@ -3285,6 +3349,96 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "realrashid/sweet-alert",
+            "version": "v7.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/realrashid/sweet-alert.git",
+                "reference": "d54b1663970da8d416eb09e8719a8561a45fb2d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/d54b1663970da8d416eb09e8719a8561a45fb2d9",
+                "reference": "d54b1663970da8d416eb09e8719a8561a45fb2d9",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.6|^6.0|^7.0|^8.0|^9.0|^9.11|9.14.*|^10.0|^11.0|^12.0",
+                "php": "^7.2|^8.0|^8.1|^8.2|^8.3"
+            },
+            "require-dev": {
+                "symfony/thanks": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Alert": "RealRashid\\SweetAlert\\Facades\\Alert"
+                    },
+                    "providers": [
+                        "RealRashid\\SweetAlert\\SweetAlertServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "RealRashid\\SweetAlert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rashid Ali",
+                    "email": "realrashid05@gmail.com",
+                    "homepage": "https://realrashid.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Sweet Alert Is A Package For Laravel Provides An Easy Way To Display Alert Messages Using The SweetAlert2 Library.",
+            "homepage": "https://github.com/realrashid/sweet-alert",
+            "keywords": [
+                "alert",
+                "laravel",
+                "laravel-package",
+                "notifier",
+                "noty",
+                "sweet-alert",
+                "sweet-alert2",
+                "toast"
+            ],
+            "support": {
+                "docs": "https://realrashid.github.io/sweet-alert/",
+                "email": "realrashid05@gmail.com",
+                "issues": "https://github.com/realrashid/sweet-alert/issues",
+                "source": "https://github.com/realrashid/sweet-alert"
+            },
+            "funding": [
+                {
+                    "url": "https://ko-fi.com/realrashid",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.buymeacoffee.com/realrashid",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://issuehunt.io/r/realrashid",
+                    "type": "issuehunt"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/realrashid/sweet-alert",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-02-25T21:11:49+00:00"
         },
         {
             "name": "symfony/clock",

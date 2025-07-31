@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Api\ContactMessageController;
+use App\Http\Controllers\Admin\CVController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -16,16 +18,16 @@ use App\Http\Controllers\Admin\SkillsController;
 
 
 
-Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
-        Route::get('log', [LoginController::class, 'log'])->name('admin.log');
+        Route::get('log', [LoginController::class, 'get'])->name('admin.log');
 
 
         /***********           Start profile Rout              ***********/
 
         Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile');
-        Route::put('/admin/profile/update', [AdminController::class, 'update'])->name('admin.profile.update');
+        Route::post('/admin/profile/update', [AdminController::class, 'update'])->name('admin.profile.update');
 
 
         /***********           End  profile  Rout              ***********/
@@ -122,6 +124,42 @@ Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
 
 
         /***********           End  Category  Rout              ***********/
+
+
+
+
+
+    /***********           Start  CV  Rout              ***********/
+
+    // في routes/web.php
+    Route::get('/download-cv/{filename}', function ($filename) {
+        $path = storage_path('app/public/cvs/' . $filename);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->download($path);
+    });
+
+    Route::get('/upload-cv', function () {
+        return view('upload_cv');
+    });
+
+    Route::post('/upload-cv', [CVController::class, 'upload'])->name('cv.upload');
+
+    /***********           End  CV  Rout              ***********/
+
+
+
+
+
+    /***********           Start  Messages  Rout              ***********/
+
+    Route::get('/messages', [ContactMessageController::class, 'showMessages'])->name('messages.show');
+
+    /***********           End  Messages  Rout              ***********/
+
 });
 
 
@@ -129,3 +167,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
         Route::get('login', [LoginController::class, 'getlogin'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('admin.login');
 });
+
+
+
+
+Route::fallback(function () {
+    return redirect()->route('admin.login');
+});
+

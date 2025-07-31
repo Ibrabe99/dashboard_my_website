@@ -16,7 +16,13 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');
-            $table->string('image',225)->nullable(); 
+            $table->string('hijri_date')->nullable();
+            $table->string('day')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
+            $table->unsignedBigInteger('likes')->default(0);
+            $table->string('image',225)->nullable();
             $table->boolean('is_active')->default(true);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
@@ -29,5 +35,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('articles');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropColumn(['views', 'likes']);
+        });
     }
 };

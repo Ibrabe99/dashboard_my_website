@@ -17,6 +17,12 @@ return new class extends Migration
             $table->string('slug',225)->unique(); // رابط مميز
             $table->string('image',225)->nullable(); // صورة للمشروع
             $table->text('description')->nullable(); // وصف
+            $table->string('hijri_date')->nullable();
+            $table->string('day')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
+            $table->unsignedBigInteger('likes')->default(0);
             $table->string('live_link')->nullable(); // رابط المعاينة
             $table->string('github_link')->nullable(); // رابط GitHub
             $table->boolean('is_active')->default(true);
@@ -31,6 +37,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('projects');
+
+        Schema::table('projects', function (Blueprint $table) {
+            $table->dropColumn(['views', 'likes']);
+        });
     }
 
 

@@ -1,12 +1,11 @@
 @extends('admin.layouts.dashboard')
 
-@section('title', 'المشاريع')
+@section('title', 'المقالات')
 
 @section('content')
 
 
-    @include('admin.includes.alerts.success')
-    @include('admin.includes.alerts.errors')
+
 
 
     <section class="content-header">
@@ -14,8 +13,9 @@
             <div class="row mb-2 align-items-center">
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">الرئيسية</a></li>
-                        <li class="breadcrumb-item active"> تبرع مستلم</li>
+
+                        <li class="breadcrumb-item"> <a href="{{ route('admin.dashboard') }}">  الرئيسية </a> </li> /
+                        <li class="breadcrumb-item active float-right">  المقالات </li>
 
                     </ol>
                 </div>
@@ -26,13 +26,16 @@
                 </div>
 
 
-            </div>
+
+
+            </div>           @include('admin.includes.alerts.success')
+            @include('admin.includes.alerts.errors')
         </div><!-- /.container-fluid -->
     </section>
 
     {{-- <a href="{{ route('admin.add.daily-donation') }}" class="btn btn-primary mb-5 mt-5"> إضافة تبرع جديد مستلم</a> --}}
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">
-        <i class="fas fa-plus"></i> إضافة مشروع جديد
+    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addProjectModal">
+        <i class="fas fa-plus"></i> إضافة مقال جديد
     </button>
 
     <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel"
@@ -41,8 +44,8 @@
             <div class="modal-content">
                 <form action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-header bg-primary">
-                        <h5 class="modal-title" id="addProjectModalLabel">إضافة مشروع جديد</h5>
+                    <div class="modal-header bg-primary mb-5">
+                        <h5 class="modal-title " id="addProjectModalLabel">إضافة مشروع جديد</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="إغلاق">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -99,7 +102,7 @@
                                 </div>
 
 
-                                
+
                                 @error('image')
                                     <p class="text-danger mt-3">{{ $message }}</p>
                                 @enderror
@@ -125,19 +128,22 @@
     <div class="card">
 
         <div class="card-header text-center">
-            <h3 class="card-title w-100">التبرعات اليومية المستلمة</h3>
+            <h3 class="card-title w-100">المقالات</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive">
 
             @if (@isset($articles) and !@empty($articles))
-                <table id="example2" class="table table-bordered  ">
+                <table id="example2" class="table table-bordered table-striped  table-auto  ">
                     <thead>
                         <tr>
                             <th>العنوان</th>
                             <th>التفاصيل</th>
                             <th>القسم </th>
                             <th style="border-left: 1px solid #ddd;">الصورة</th>
+                            <th>اليوم</th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ الهجري</th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ </th>
                             <th>الإجراءات</th>
                         </tr>
                     </thead>
@@ -148,8 +154,8 @@
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->content }}</td>
                                 <td>{{ $item->category->name}}</td>
-                               
-                               
+
+
 
                                 <td style="border-left: 1px solid #ddd;">
                                     @if ($item->image === null)
@@ -163,8 +169,20 @@
                                         @endforeach --}}
                                     </div>
                                     @endif
-                                    
+
                                 </td>
+
+                                <td>{{ $item->day }}</td>
+                                <td style="border-left: #DDDDDD solid 1px">{{ $item->hijri_date }}</td>
+                                <td style="border-left: #DDDDDD solid 1px">{{ $item->date }} ({{$item->time}})</td>
+
+
+
+
+
+
+
+
 {{-- {{ route('admin.daily-donation.show', $item->id) }}{{ route('admin.edit.daily-donation', ['id' => $item->id]) }}{{ route('admin.delete.daily-donation', ['id' => $item->id]) }} --}}
                                 <td class="d-flex align-items-center" style="gap: 10px;">
                                     {{-- زر العرض --}}
@@ -183,11 +201,11 @@
 
                                     <form action="{{ route('admin.articles.destroy', $item->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
                                         @csrf
-                                        @method('DELETE')    
+                                        @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" title="حذف"><i class="far fa-trash-alt"></i> </button>
                                     </form>
-                                    
-                               
+
+
 
                                     <a href="{{ route('admin.articles.active', $item->id) }}" class="btn btn-sm {{ $item->is_active ? 'btn-success' : 'btn-secondary' }}">
                                         {{ $item->is_active ? 'مفعل' : 'غير مفعل' }}
@@ -204,6 +222,9 @@
                             <th>التفاصيل</th>
                             <th>القسم </th>
                             <th style="border-left: 1px solid #ddd;">الصورة</th>
+                            <th>اليوم</th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ الهجري</th>
+                            <th style="border-left: #DDDDDD solid 1px">التاريخ </th>
                             <th>الإجراءات</th>
                         </tr>
                     </tfoot>

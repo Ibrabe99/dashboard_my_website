@@ -22,7 +22,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' =>'required|string|max:25',
+            'name' =>'required|string|max:25',
             'password' => 'required|string|min:5',
         ];
     }
@@ -30,11 +30,11 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.required' => 'إسم المستخم مطلوب',
-            'username.max' => 'إسم المستخم طويل',
+            'name.required' => 'إسم المستخم مطلوب',
+            'name.max' => 'إسم المستخم طويل',
             'password.required' => 'كلمة المرور مطلوبة',
             'password.min' => 'كلمة المرور يجب أن تكون على الأقل 8 أحرف',
-            
+
         ];
 
     }
