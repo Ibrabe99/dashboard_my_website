@@ -18,7 +18,7 @@ class ArticlesController extends Controller
     // عرض جميع المقالات مع تصنيفاتها
     public function index()
     {
-        $articles = Article::with('category')->latest()->paginate(15);
+        $articles = Article::with('category')->latest()->get();
         $categories = Category::where('is_active', 1)->get();
 
         return view('admin.articles.article', compact('articles', 'categories'));

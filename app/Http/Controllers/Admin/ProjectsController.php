@@ -17,7 +17,7 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        $projects = Project::with('category')->latest()->paginate(10);
+        $projects = Project::with('category')->latest()->get();
         $categories = Category::where('is_active', 1)->get();
 
 

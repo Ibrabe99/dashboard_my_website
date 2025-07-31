@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\api\ApiArticlesController;
 use App\Http\Controllers\Admin\api\ApiSkillsController;
 use App\Http\Controllers\Admin\api\ApiProjectsController;
 use App\Http\Controllers\Admin\api\ApiSocialLinkController;
-use App\Http\Controllers\Admin\Api\ContactMessageController;
+use App\Http\Controllers\Admin\api\ContactMessageController;
 use App\Http\Controllers\Admin\CVController;
-use App\Http\Controllers\Api\StatsController;
+use App\Http\Controllers\api\StatsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

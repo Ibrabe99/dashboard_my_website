@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Api\ContactMessageController;
+use App\Http\Controllers\Admin\api\ContactMessageController;
 use App\Http\Controllers\Admin\CVController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
