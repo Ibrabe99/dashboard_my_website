@@ -1,20 +1,22 @@
-# Use a popular and public PHP-FPM image with Nginx
-FROM richarvey/nginx-php-fpm:php82
+# Use the official PHP image with Apache
+FROM php:8.2-apache
 
-# Set the working directory
-WORKDIR /var/www/html
+# Set the document root to Laravel's public directory
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN a2enmod rewrite
 
-# Copy existing application directory contents
-COPY . .
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install pdo pdo_mysql zip
 
-# Install composer dependencies
+# Copy application code
+COPY . /var/www/html
+
+# Install Composer dependencies
 RUN composer install --no-interaction --no-dev --prefer-dist
 
-# Set permissions for storage and bootstrap/cache
-RUN chown -R www-data:www-data storage bootstrap/cache
-RUN chmod -R 775 storage bootstrap/cache
-
-# Clear caches for production
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
-
-# The base image's entrypoint will start nginx and php-fpm.
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html
