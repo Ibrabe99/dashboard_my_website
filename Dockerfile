@@ -6,7 +6,7 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN a2enmod rewrite
 
-# Install dependencies
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
@@ -14,6 +14,10 @@ RUN apt-get update && apt-get install -y \
 
 # Copy application code
 COPY . /var/www/html
+
+# --- INSTALL COMPOSER ---
+# Copy composer from the official composer image
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install Composer dependencies
 RUN composer install --no-interaction --no-dev --prefer-dist
