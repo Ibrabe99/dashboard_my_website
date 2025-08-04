@@ -1,5 +1,5 @@
 # Use a popular and public PHP-FPM image with Nginx
-FROM richarvey/nginx-php-fpm:2.2.1-php82
+FROM richarvey/nginx-php-fpm:php82
 
 # Set the working directory
 WORKDIR /var/www/html
